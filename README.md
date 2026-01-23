@@ -21,15 +21,16 @@ Since a single grayscale value contains limited information, the model maps the 
 The implementation includes correctness verification:
 
 1. **Gradient Checking**: Numerical gradients are compared with backpropagation gradients. The ratio of $L^2$ norm differences is consistently smaller than $1e-11$:
-   $$
-   r_{L^2} = \frac{||G^{numerical} - G^{back-propagation}||}{||G^{numerical} + G^{back-propagation}||} < 1e-11
-   $$
+
+$$
+r_{L^2} = \frac{||G^{numerical} - G^{back-propagation}||}{||G^{numerical} + G^{back-propagation}||} < 1e-11
+$$
 
 2. **XOR Problem Test**: The network was tested on the XOR problem with architecture [2, 2, 1], converging in several thousand iterations with testing error smaller than $1e-6$.
 
 ## Data
 
-- **Dataset**: CIFAR-100
+- **Dataset**: CIFAR-100 [[1]](#references)
 - **Subset**: One class (trees, class ID 52) containing 600 32×32 color images
 - **Split**:
   - Training: 400 images
@@ -45,7 +46,12 @@ The implementation includes correctness verification:
 
 ## Model Architecture
 
-- **Input Dimension**: $(2 \times \text{window\_size} + 1)^2$ (e.g., 25 for window_size=2)
+- **Input Dimension**: 
+
+$$
+(2 \times \text{window size} + 1)^2
+$$
+
 - **Hidden Layers**: [8, 4] neurons
 - **Output Dimension**: 3 (RGB channels)
 - **Activation**: Sigmoid
@@ -55,7 +61,7 @@ The implementation includes correctness verification:
 
 ### Optimization
 
-- **Algorithm**: Stochastic Gradient Descent (SGD) with Adam optimizer
+- **Algorithm**: Stochastic Gradient Descent (SGD) with Adam optimizer [[2]](#references)
 - **Adam Parameters** (as recommended by original authors):
   - Learning rate $\alpha = 0.001$
   - $\beta_1 = 0.9$
@@ -177,21 +183,7 @@ image-colorization/
 3. **Evaluation**:
    - Implement "Colorization Turing Test" for perceptual error assessment
 
-## Bonus: Image Inpainting
-
-The project also includes a bonus implementation of image inpainting using a non-parametric texture synthesis method by Efros and Leung. This approach grows a new image outward from an initial seed, one pixel at a time, by finding similar neighborhoods in the sample image.
-
-- **Location**: `520/code/bonus/`
-- **Implementation**: MATLAB
-- **Method**: Non-parametric texture synthesis
-
 ## References
 
 1. [CIFAR-100 Dataset](https://www.cs.toronto.edu/~kriz/cifar.html)
 2. Kingma, D. P., & Ba, J. (2014). Adam: A method for stochastic optimization. *CoRR*, abs/1412.6980.
-3. Efros, A., & Leung, T. K. (1999). Texture synthesis by non-parametric sampling. *Proceedings of the Seventh IEEE International Conference on Computer Vision*, 2, 1033-1038.
-4. [Efros & Leung Algorithm](http://graphics.cs.cmu.edu/people/efros/research/NPS/alg.html)
-
-## Author
-
-Di Hao
