@@ -125,22 +125,21 @@ pip install numpy tensorflow scikit-image matplotlib scipy
 ### Running the Model
 
 1. **Test Correctness** (XOR problem and gradient checking):
-   ```python
-   python src/main.py
-   # Uncomment test_correctness() in main()
+   ```bash
+   python src/main_test.py
    ```
 
 2. **Train the Model**:
-   ```python
+   ```bash
    python src/main.py
-   # Uncomment agent.train() in main()
    ```
+   This will train the model from scratch and save weights to `src/_weights_`.
 
 3. **Test with Pre-trained Weights**:
-   ```python
-   python src/main.py
-   # Model loads weights from src/_weights_
+   ```bash
+   python src/main.py -w src/weights
    ```
+   This loads the specified pre-trained weights file and tests the model (skips training).
 
 ### Project Structure
 

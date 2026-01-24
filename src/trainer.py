@@ -1,4 +1,5 @@
 import math
+import os
 import numpy as np
 
 
@@ -37,7 +38,8 @@ class Trainer:
                 if validation_error < min_valid_error:
                     print("Found better parameters at epochs:", epochs_count, " with validation error:", validation_error)
                     min_valid_error = validation_error
-                    net.storeParams("_weights_")
+                    weights_path = os.path.join(os.path.dirname(__file__), "_weights_")
+                    net.storeParams(weights_path)
                     catch_time = 0
                 else:
                     catch_time += 1
@@ -46,12 +48,15 @@ class Trainer:
                     break
                 epochs_count += 1
                 if (epochs_count % 100) == 0:
-                    net.storeParams("_weights_restart_")
+                    weights_restart_path = os.path.join(os.path.dirname(__file__), "_weights_restart_")
+                    net.storeParams(weights_restart_path)
                     self.storeErrors(training_errors, validation_errors)
 
     def storeErrors(self, training_errors, validation_errors):
-        np.savetxt("_training_errors_", training_errors)
-        np.savetxt("_validation_errors_", validation_errors)
+        training_errors_path = os.path.join(os.path.dirname(__file__), "_training_errors_")
+        validation_errors_path = os.path.join(os.path.dirname(__file__), "_validation_errors_")
+        np.savetxt(training_errors_path, training_errors)
+        np.savetxt(validation_errors_path, validation_errors)
 
     def evaluate(self, net, validation_set):
         # ret = 0
