@@ -57,7 +57,6 @@ def main(weights_file=None):
     from skimage import color
     import matplotlib.cm as cm
     original_pics = array2pics(test_targets, 32, 32)
-    # gray_pics = color.rgb2gray(original_pics)
     predicted_pics = array2pics(net.layers[-1].outputs, 32, 32)
     _, axarr = plt.subplots(5, 8)
     for i in range(5):
